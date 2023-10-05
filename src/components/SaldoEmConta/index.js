@@ -18,8 +18,9 @@ export default function SaldoEmConta(){
 
 const styles = StyleSheet.create({
   container:{
-    flex:1,
-    backgroundColor: 'black'
+    flex:0,
+    backgroundColor: 'black',
+    marginTop: 20,
   },
   field:{
     flexDirection: 'row',
@@ -29,6 +30,6 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 25,
-    fontFamily: 'Montserrat-Bold'
+    fontFamily: 'Montserrat-Bold',
   }
 })
