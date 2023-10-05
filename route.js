@@ -1,4 +1,5 @@
 import Principal from './src/components/pages/Principal';
+import CadastrarAtividade from './src/components/pages/CadastrarAtividade';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -48,7 +49,7 @@ function Routes() {
 
             <Tab.Screen 
                 name='New'
-                component={Principal}
+                component={CadastrarAtividade}
                 options={{
                     tabBarLabel: '',
                     tabBarIcon: ({ color, size }) => {
