@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import TextDespesa from '../TextDespesa';
+import TextReceita from '../TextReceita';
 
 export default function Atividades(){
 
@@ -9,32 +10,26 @@ export default function Atividades(){
     <View style={styles.container}>
         <View style={styles.title}>
             <Text style={styles.text}>Atividades</Text>
-        </View>
+            <View
+                    style={{
+                      borderBottomColor: '#535353',
+                      borderBottomWidth: StyleSheet.hairlineWidth,
+                      width: '95%',
+                      paddingBottom: 10
+                    }}
+                  />
+       
         <ScrollView style={styles.scrollView}>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
-            <Text style={styles.text}>Receita</Text>
+          <View style={{paddingTop:10, paddingLeft:5}}><TextDespesa/></View>
+          <View style={{paddingTop:10, paddingLeft:5}}><TextDespesa/></View>
+          <View style={{paddingTop:10, paddingLeft:5}}><TextReceita/></View>
+          <View style={{paddingTop:10, paddingLeft:5}}><TextDespesa/></View>
+          <View style={{paddingTop:10, paddingLeft:5}}><TextReceita/></View>
+          <View style={{paddingTop:10, paddingLeft:5}}><TextReceita/></View>
+          <View style={{paddingTop:10, paddingLeft:5}}><TextDespesa/></View>
+          <View style={{paddingTop:10, paddingLeft:5}}><TextDespesa/></View>
         </ScrollView>
+      </View>
     </View>
   )
 }
@@ -42,27 +37,20 @@ export default function Atividades(){
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    width: '90%',
-    height: '20%',
     borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#333333',
-  },
-  text: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
+    width: '90%'
   },
   title: {
     paddingTop: 10,
-    width: '90%',
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+  },
+  text: {
+    color: 'white',
+    fontSize: 30,
+    fontWeight: 'bold',
+    paddingLeft: 10
   },
   scrollView: {
-    width: '90%',
-    height: '10%',
+    backgroundColor: '#333333',
   }
 })

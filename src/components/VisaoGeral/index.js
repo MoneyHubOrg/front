@@ -4,6 +4,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import Arrows from 'react-native-vector-icons/AntDesign';
 import ArrowsUpDown from 'react-native-vector-icons/Feather';
 
+import TextReceita from '../TextReceita';
+import TextDespesa from '../TextDespesa';
+
 export default function VisaoGeral(){
 
   return(
@@ -17,21 +20,8 @@ export default function VisaoGeral(){
       </View>
 
       <View style={styles.EconomyStatusField}>
-        <View style={styles.EconomyStatus}>
-        <ArrowsUpDown name="arrow-up-circle" color='#45D75C' size={40}/>
-          <View>
-            <Text style={styles.title_EconomyStatus}>Receitas</Text>
-            <Text style={styles.number_receitas}>R$ 50.000,00</Text>
-          </View>
-        </View>
-
-        <View style={styles.EconomyStatus}>
-        <ArrowsUpDown name="arrow-down-circle" color='#FF3434' size={40}/>
-          <View>
-            <Text style={styles.title_EconomyStatus}>Receitas</Text>
-            <Text style={styles.number_gastos}>R$ 50.000,00</Text>
-          </View>
-        </View>
+        <TextReceita />
+        <TextDespesa />
       </View>
 
     </View>
@@ -54,14 +44,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   field:{
-    paddingTop: 60,
+    paddingTop: 50,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 40
+    gap: 30
   },
   mes: {
     color: 'white',
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: '400',
   },
   EconomyStatusField: {
