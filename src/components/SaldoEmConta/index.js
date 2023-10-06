@@ -6,21 +6,22 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 export default function SaldoEmConta(){
 
   return(
-    <View style={styles.container}>
-      <Text style={styles.text}>Saldo em conta</Text>
-      <View style={styles.field}>
-        <Text style={styles.text}>R$ 25.000,00</Text>
+    <View style={stylesSaldoEmConta.container}>
+      <Text style={stylesSaldoEmConta.text}>Saldo em conta</Text>
+      <View style={stylesSaldoEmConta.field}>
+        <Text style={stylesSaldoEmConta.text}>R$ 25.000,00</Text>
         <AntDesign name="eyeo" color='white' size={20} />
       </View>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
+const stylesSaldoEmConta = StyleSheet.create({
   container:{
     flex:0,
     backgroundColor: 'black',
     marginTop: 20,
+    marginBottom: 20,
   },
   field:{
     flexDirection: 'row',

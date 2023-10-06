@@ -1,5 +1,5 @@
-import Principal from './src/components/pages/Principal';
-import CadastrarAtividade from './src/components/pages/CadastrarAtividade';
+import Principal from './src/pages/Principal';
+import CadastrarAtividade from './src/pages/CadastrarAtividade';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 

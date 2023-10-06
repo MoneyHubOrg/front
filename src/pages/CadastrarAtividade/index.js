@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import Arrows from 'react-native-vector-icons/AntDesign';
-import SaldoEmConta from '../../SaldoEmConta';
 
 
 export default function CadastrarAtividade(){

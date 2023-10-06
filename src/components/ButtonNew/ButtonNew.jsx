@@ -6,13 +6,13 @@ import { View, Text, StyleSheet } from 'react-native'
 
 export default function ButtonNew({ color, size }){
     return (
-        <View style={styles.container}>
+        <View style={stylesBtnNew.container}>
             <Feather name="plus" color={color} size={size} />
         </View>
     )
 }
 
-const styles = StyleSheet.create({
+const stylesBtnNew = StyleSheet.create({
     container: {
         width: 60,
         height: 60,

@@ -2,80 +2,76 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import Arrows from 'react-native-vector-icons/AntDesign';
-import ArrowsUpDown from 'react-native-vector-icons/Feather';
 
-import TextReceita from '../TextReceita';
-import TextDespesa from '../TextDespesa';
+import TextWithIcon from '../TextWithIcon';
 
-export default function VisaoGeral(){
+export default function VisaoGeral() {
 
-  return(
-    <View style={styles.container}>
-      <Text style={styles.text}>Visão Geral</Text>
+  return (
+    <View style={stylesVisaoGeral.container}>
+      <Text style={stylesVisaoGeral.text}>Visão Geral</Text>
 
-      <View style={styles.field}>
-        <Arrows name="left" color='white' size={20} />
-        <Text style={styles.mes}>Setembro</Text>
-        <Arrows name="right" color='white' size={20} />
+      <View style={stylesVisaoGeral.field}>
+        <Arrows name="left" color='white' size={20} style={stylesVisaoGeral.seta} />
+        <Text style={stylesVisaoGeral.mes}>Setembro</Text>
+        <Arrows name="right" color='white' size={20} style={stylesVisaoGeral.seta} />
       </View>
 
-      <View style={styles.EconomyStatusField}>
-        <TextReceita />
-        <TextDespesa />
+      <View style={stylesVisaoGeral.EconomyStatusField}>
+        <View style={{flex: 1, marginRight: 20}}>
+          <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
+        </View>
+        <View style={{flex: 1}}>
+          <TextWithIcon icon="despesa" colorTitulo='#828282' colorValor='#FF3434' text="Despesas" valor="R$ 50.000,00" />
+        </View>
       </View>
 
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
+const stylesVisaoGeral = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
     width: '90%',
-    height: '20%',
     alignItems: 'center',
-    paddingTop: 20,
     backgroundColor: '#333333',
     borderRadius: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 20,
+    // paddingBottom: 20,
+    marginBottom: 30,
   },
   text: {
     color: 'white',
     fontSize: 30,
     fontWeight: 'bold',
   },
-  field:{
-    paddingTop: 50,
+  field: {
+    marginTop: 30,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 30
+    justifyContent: 'center',
+    width: '100%',
   },
   mes: {
     color: 'white',
     fontSize: 30,
     fontWeight: '400',
+    width: '80%',
+    textAlign: 'center',
+  },
+  seta: {
+    width: '10%',
   },
   EconomyStatusField: {
-    width: '90%',
+    width: '100%',
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    gap: 30
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
   },
-  EconomyStatus: {
-    gap: 5,
-    flexDirection: 'row',
-  },
-  title_EconomyStatus: {
-    color: '#828282',
-    fontSize: 12
-  },
-  number_receitas: {
-    color: '#45D75C',
-    fontSize: 20
-  },
-  number_gastos: {
-    color: '#FF3434',
-    fontSize: 20
-  }
 })
