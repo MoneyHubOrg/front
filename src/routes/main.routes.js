@@ -1,17 +1,16 @@
-import Principal from './src/pages/Principal';
-import CadastrarAtividade from './src/pages/CadastrarAtividade';
+import Principal from '../pages/Principal';
+import CadastrarAtividade from '../pages/CadastrarAtividade';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import ButtonNew from './src/components/ButtonNew/ButtonNew';
+import ButtonNew from '../components/ButtonNew/ButtonNew';
 
 const Tab = createBottomTabNavigator();
 
-function Routes() {
+function MainRoutes() {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -81,4 +80,4 @@ function Routes() {
     )
 };
 
-export default Routes;
+export default MainRoutes;
