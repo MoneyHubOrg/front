@@ -3,13 +3,18 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function SaldoEmConta(){
+export default function SaldoEmConta({ padding }){
 
   return(
-    <View style={stylesSaldoEmConta.container}>
-      <Text style={stylesSaldoEmConta.text}>Saldo em conta</Text>
+    <View 
+      style={[
+        stylesSaldoEmConta.container, 
+        { paddingLeft: padding || 'auto' }
+      ]}
+    >
+      <Text style={stylesSaldoEmConta.title}>Saldo em Conta</Text>
       <View style={stylesSaldoEmConta.field}>
-        <Text style={stylesSaldoEmConta.text}>R$ 25.000,00</Text>
+        <Text style={stylesSaldoEmConta.subTitle}>R$ 25.000,00</Text>
         <AntDesign name="eyeo" color='white' size={20} />
       </View>
     </View>
@@ -28,9 +33,15 @@ const stylesSaldoEmConta = StyleSheet.create({
     alignItems: 'center',
     gap: 10
   },
-  text: {
+  title: {
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'Montserrat-Bold',
+  },
+  subTitle: {
     color: 'white',
     fontSize: 25,
     fontFamily: 'Montserrat-Bold',
-  }
+    fontWeight: 'bold',
+  },
 })
