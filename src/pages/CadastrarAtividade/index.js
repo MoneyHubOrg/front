@@ -10,6 +10,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function CadastrarAtividade(){
 
+  let dataAtual = new Date().toLocaleString()
+
   const opcoes = ['Receita', 'Despesa']
   const opcoesCateg = ['Mercado', 'Comida', 'Farmácia', 'Lazer', 'Viagem']
   
@@ -20,6 +22,15 @@ export default function CadastrarAtividade(){
   const onSubmit = (data) => {
     console.log(data);
     navigation.navigate('Principal');
+    let json = {
+      id_conta:1,
+      id_usuario:1,
+      id_categoria: data['categoria'],
+      valor: data['valor'],
+      descricao: 'Descrição',
+      data: dataAtual,
+    }
+    console.log(json)
   };
 
   useEffect(() => {
