@@ -1,9 +1,16 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function SaldoEmConta({ padding }){
+
+  const [visibility, setVisibility] = useState(true)
+  console.log(visibility)
+
+  const toggleVisibility = () => {
+    setVisibility(!visibility);
+  };
 
   return(
     <View 
@@ -14,8 +21,12 @@ export default function SaldoEmConta({ padding }){
     >
       <Text style={stylesSaldoEmConta.title}>Saldo em Conta</Text>
       <View style={stylesSaldoEmConta.field}>
-        <Text style={stylesSaldoEmConta.subTitle}>R$ 25.000,00</Text>
-        <AntDesign name="eyeo" color='white' size={20} />
+        <Text style={stylesSaldoEmConta.subTitle}>
+          R$ {visibility ? '25.000,00' : '***'}
+        </Text>
+        <TouchableOpacity onPress={toggleVisibility}>
+          <AntDesign name="eyeo" color='white' size={20} />
+        </TouchableOpacity>
       </View>
     </View>
   )

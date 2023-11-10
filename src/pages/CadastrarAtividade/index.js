@@ -25,6 +25,7 @@ export default function CadastrarAtividade(){
   useEffect(() => {
     register('valor')
     register('tipo')
+    register('categoria')
   }, [register]) 
 
   return(
@@ -37,7 +38,7 @@ export default function CadastrarAtividade(){
       <SaldoEmConta padding={20} />
 
       <View style ={styles.formContainer}>
-        <View>          
+        <View style={styles.containerInput}>          
           <Text 
             style={styles.text} 
           >
@@ -60,11 +61,11 @@ export default function CadastrarAtividade(){
               placeholderTextColor='#B7B7B7'
               onChangeText={text => setValue('valor', text)}
             />
-            <AntDesign name="edit" color='white' size={25} />
+            <AntDesign name="edit" color='white' size={20} />
           </View>
         </View>
 
-        <View>
+        <View style={styles.containerInput}>
           <Text style={styles.text}>Categoria</Text>
           <View
             style={{
@@ -76,9 +77,9 @@ export default function CadastrarAtividade(){
           />
           <SelectDropdown
             data={opcoesCateg}
-            defaultButtonText='Selecione o tipo'
+            defaultButtonText='Selecione a Categoria'
             buttonStyle={styles.dropDown}
-            onSelect={tipo => setValue('tipo', tipo)}
+            onSelect={categoria => setValue('categoria', categoria)}
             renderDropdownIcon={isOpened => {
               return <AntDesign name={isOpened ? "arrowup" : "arrowdown"} color='white' size={25} />
             }}
@@ -86,7 +87,7 @@ export default function CadastrarAtividade(){
           />
         </View>
 
-        <View>
+        <View style={styles.containerInput}>
           <Text style={styles.text}>Tipo da Atividade</Text>
           <View
             style={{
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    gap: 30,
+    gap: 25,
     width: '100%',
     height: '100%',
     backgroundColor: '#333333',
@@ -154,10 +155,10 @@ const styles = StyleSheet.create({
   inputContainer: {
     color: 'white',
     width: '90%',
-    fontSize: 25
+    fontSize: 20
   },
   inputImage: {
-    width: '100%',
+    width: '90%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent:'flex-start',
@@ -168,5 +169,8 @@ const styles = StyleSheet.create({
   },
   botao: {
     backgroundColor:'white'
-  }
+  },
+  containerInput: {
+    alignItems: 'center'
+  },
 })

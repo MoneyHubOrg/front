@@ -1,7 +1,7 @@
-import Principal from './src/pages/Principal';
-import CadastrarAtividade from './src/pages/CadastrarAtividade';
-import Perfil from './src/pages/Perfil';
-import Transacoes from './src/pages/Transacoes';
+import Principal from '../pages/Principal';
+import CadastrarAtividade from '../pages/CadastrarAtividade';
+import Perfil from '../pages/Perfil';
+import Transacoes from '../pages/Transacoes';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 

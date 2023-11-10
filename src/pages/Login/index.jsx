@@ -18,8 +18,8 @@ export default function Login() {
         <View style={LoginStyle.container}>
             <Text style={LoginStyle.titulo}>Login </Text>
             <View style={LoginStyle.inputsContainer}>
-                <TextInput style={LoginStyle.input} placeholder="Email" />
-                <TextInput style={LoginStyle.input} placeholder="Senha" />
+                <TextInput style={LoginStyle.input} placeholder="Email" placeholderTextColor='#9B9B9B' />
+                <TextInput style={LoginStyle.input} placeholder="Senha" placeholderTextColor='#9B9B9B' />
                 <TouchableOpacity style={LoginStyle.button} onPress={() => {
                     logar();
                  }}>
@@ -70,7 +70,7 @@ const LoginStyle = StyleSheet.create({
         padding: 10,
     },
     button: {
-        backgroundColor: '#00611a',
+        backgroundColor: '#7305CA',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
