@@ -1,5 +1,7 @@
-import Principal from '../pages/Principal';
-import CadastrarAtividade from '../pages/CadastrarAtividade';
+import Principal from './src/pages/Principal';
+import CadastrarAtividade from './src/pages/CadastrarAtividade';
+import Perfil from './src/pages/Perfil';
+import Transacoes from './src/pages/Transacoes';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -38,7 +40,7 @@ function MainRoutes() {
             <Tab.Screen 
 
                 name='Transações'
-                component={Principal}
+                component={Transacoes}
                 options={{
                     tabBarIcon: ({ color, size }) => {
                         return <AntDesign name="bars" color={color} size={size} />
@@ -69,7 +71,7 @@ function MainRoutes() {
             
             <Tab.Screen 
                 name='Perfil'
-                component={Principal}
+                component={Perfil}
                 options={{
                     tabBarIcon: ({ color, size }) => {
                       return <AntDesign name="user" color={color} size={size} />
