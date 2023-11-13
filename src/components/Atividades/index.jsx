@@ -5,7 +5,38 @@ import TextWithIcon from '../TextWithIcon';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import firestore from '@react-native-firebase/firestore';
+
 export default function Atividades() {
+
+  
+  let financias = [];
+
+  async function FuncaoProcura() {
+    const collectionRef = firestore().collection('financia');
+
+      collectionRef.get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('Nenhum documento encontrado na coleção.');
+            return;
+          }
+
+          snapshot.forEach(doc => {
+            console.log('Documento:', doc.id, '=>', doc.data());
+            financias.push({id: doc.id, data: doc.data})
+          });
+          console.log(financias)
+        })
+        .catch(err => {
+          console.error('Erro ao obter documentos da coleção:', err);
+        });
+        
+        }
+
+  FuncaoProcura()
+
+
 
   return (
     <View style={stylesAtividades.container}>
@@ -21,29 +52,9 @@ export default function Atividades() {
         />
         <View style={stylesAtividades.scrollView}>
           <ScrollView style={stylesAtividades.scroll}>
-          <View style={stylesAtividades.transacoesContainer}>
-                  <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
-                  <AntDesign name="shoppingcart" color='white' size={25} />
-               </View>
                <View style={stylesAtividades.transacoesContainer}>
                   <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
                   <AntDesign name="gift" color='white' size={25} />
-               </View>
-               <View style={stylesAtividades.transacoesContainer}>
-                  <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
-                  <MaterialIcons name="fastfood" color='white' size={25} />
-               </View>
-               <View style={stylesAtividades.transacoesContainer}>
-                  <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
-                  <AntDesign name="shoppingcart" color='white' size={25} />
-               </View>
-               <View style={stylesAtividades.transacoesContainer}>
-                  <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
-                  <AntDesign name="gift" color='white' size={25} />
-               </View>
-               <View style={stylesAtividades.transacoesContainer}>
-                  <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
-                  <MaterialIcons name="fastfood" color='white' size={25} />
                </View>
           </ScrollView>
         </View>
