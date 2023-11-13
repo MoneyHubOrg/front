@@ -1,11 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import Svg, { Image, Path } from 'react-native-svg';
 import MoneyHub1 from '../../../assets/MoneyHub1.png';
+import { useForm } from 'react-hook-form';
+
 
 
 export default function Login() {
+
+
+      
+    const {register, setValue, handleSubmit} = useForm()
 
     const navegar = useNavigation();
 
@@ -13,14 +19,34 @@ export default function Login() {
         navegar.navigate('Register');
     }
 
-    const logar = () => {
+
+
+
+
+
+    const onSubmit = (data) => {
+        console.log(data)
         navegar.navigate('Main');
     }
+
+
+
+
+
     // Obter a largura da tela
     const screenWidth = Dimensions.get('window').width;
 
     // Calcular a altura correspondente mantendo a proporção do SVG original
     const svgHeight = (screenWidth * 902) / 1081;
+
+
+    useEffect(() => {
+        register('email')
+        register('senha')
+      }, [register]) 
+
+      
+
     return (
         <View style={LoginStyle.container}>
             <View style={LoginStyle.imagemFundo}>
@@ -34,12 +60,12 @@ export default function Login() {
             <View style={LoginStyle.inputsContainer}>
                 {/* label */}
                 <Text style={LoginStyle.label}>Usuário</Text>
-                <TextInput style={LoginStyle.input} placeholder="Usuario" />
+                <TextInput style={LoginStyle.input} placeholder="Usuario" onChangeText={text => setValue('email', text)}/>
                 <Text style={LoginStyle.label}>Senha</Text>
-                <TextInput style={LoginStyle.input} placeholder="Senha" />
-                <TouchableOpacity style={LoginStyle.button} onPress={() => {
-                    logar();
-                }}>
+                <TextInput style={LoginStyle.input} placeholder="Senha" onChangeText={text => setValue('senha', text)}/>
+                <TouchableOpacity style={LoginStyle.button} 
+                    onPress={handleSubmit(onSubmit)}
+                    >
                     <Text style={LoginStyle.buttonText}>Entrar </Text>
                 </TouchableOpacity>
             </View>

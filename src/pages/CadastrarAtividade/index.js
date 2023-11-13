@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, ToastAndroid } from 'react-native';
 import { Link, useNavigation } from '@react-navigation/native';
 import SaldoEmConta from '../../components/SaldoEmConta';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
+import firestore from '@react-native-firebase/firestore';
 
 export default function CadastrarAtividade(){
 
@@ -20,17 +21,24 @@ export default function CadastrarAtividade(){
   const navigation = useNavigation();
 
   const onSubmit = (data) => {
-    console.log(data);
+
     navigation.navigate('Principal');
-    let json = {
-      id_conta:1,
-      id_usuario:1,
-      id_categoria: data['categoria'],
+    firestore()
+    .collection('financia')
+    .add({
+      categoria: data['categoria'],
+      // aq tem q chegar o email do usuario atual
+      email_usuario: 'lucas@gmail.com',
       valor: data['valor'],
-      descricao: 'Descrição',
-      data: dataAtual,
-    }
-    console.log(json)
+      tipo_financia: data['tipo'],
+      data: dataAtual
+    })
+    .then(() => {
+      ToastAndroid.show('Cadastrado com sucesso!', 3)
+    })
+    .catch(() => {
+      ToastAndroid.show('Erro ao Cadastrar', 3)
+    })
   };
 
   useEffect(() => {
