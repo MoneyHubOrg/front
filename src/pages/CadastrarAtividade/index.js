@@ -22,7 +22,7 @@ export default function CadastrarAtividade(){
 
   const onSubmit = (data) => {
 
-    navigation.navigate('Principal');
+    
     firestore()
     .collection('financia')
     .add({
@@ -35,6 +35,7 @@ export default function CadastrarAtividade(){
     })
     .then(() => {
       ToastAndroid.show('Cadastrado com sucesso!', 3)
+      navigation.navigate('Principal');
     })
     .catch(() => {
       ToastAndroid.show('Erro ao Cadastrar', 3)

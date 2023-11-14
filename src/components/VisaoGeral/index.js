@@ -1,11 +1,73 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import Arrows from 'react-native-vector-icons/AntDesign';
 
-import TextWithIcon from '../TextWithIcon';
+import TextWithIconNoDate from '../TextWithIconNoDate';
+
+
+import firestore from '@react-native-firebase/firestore';
 
 export default function VisaoGeral() {
+
+  const [loading, setLoading] = useState(false)
+  const [receitaFinal, setReceitaFinal] = useState(0)
+  const [despesaFinal, setDespesaFinal] = useState(0)
+
+
+  const formatCurrency = (value) => {
+    let currency = (parseFloat(value)).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    });
+    return currency
+}
+
+let receitas=0;
+let despesas=0; 
+
+  async function FuncaoProcura() {
+ 
+    setLoading(true)
+    const collectionRef = firestore().collection('financia').where('email_usuario', '==', 'lucas@gmail.com').orderBy("data", "desc");
+
+      collectionRef.get()
+        .then(snapshot => {
+          if (snapshot.empty) {
+            console.log('Nenhum documento encontrado na coleção.');
+            return;
+          }
+
+         
+          snapshot.forEach(doc => {
+            if(doc.data().tipo_financia == 'Receita') { 
+              receitas = parseFloat(doc.data().valor)  + receitas
+              console.log('receitas'+receitas)
+
+            } else if(doc.data().tipo_financia == 'Despesa') { 
+              despesas = parseFloat(doc.data().valor) + despesas
+              console.log('despesas'+despesas)
+ 
+            }
+          });
+          setReceitaFinal(receitas)
+         setDespesaFinal(despesas)
+         setLoading(false)
+        })
+        .catch(err => {
+          console.error('Erro ao obter documentos da coleção:', err);
+          setLoading(false)
+        });
+        
+        }
+    
+
+
+        useEffect(() => {
+          FuncaoProcura()
+        }, []) 
+
+
 
   return (
     <View style={stylesVisaoGeral.container}>
@@ -13,18 +75,24 @@ export default function VisaoGeral() {
 
       <View style={stylesVisaoGeral.field}>
         <Arrows name="left" color='white' size={20} style={stylesVisaoGeral.seta} />
-        <Text style={stylesVisaoGeral.mes}>Setembro</Text>
+        <Text style={stylesVisaoGeral.mes}>Novembro</Text>
         <Arrows name="right" color='white' size={20} style={stylesVisaoGeral.seta} />
       </View>
 
-      <View style={stylesVisaoGeral.EconomyStatusField}>
-        <View style={{flex: 1, marginRight: 20}}>
-          <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
+      {loading ? (
+        <Text style={stylesVisaoGeral.text}>Carregando...</Text>
+      ): (
+        <View style={stylesVisaoGeral.EconomyStatusField}>
+          <View style={{flex: 1, marginRight: 20}}>
+            <TextWithIconNoDate icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor={formatCurrency(receitaFinal)} />
+          </View>
+          <View style={{flex: 1}}>
+            <TextWithIconNoDate icon="despesa" colorTitulo='#828282' colorValor='#FF3434' text="Despesas" valor={formatCurrency(despesaFinal)} />
+          </View>
         </View>
-        <View style={{flex: 1}}>
-          <TextWithIcon icon="despesa" colorTitulo='#828282' colorValor='#FF3434' text="Despesas" valor="R$ 50.000,00" />
-        </View>
-      </View>
+      )}
+
+       
 
     </View>
   )

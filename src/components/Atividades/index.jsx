@@ -17,14 +17,26 @@ export default function Atividades() {
       });
       return currency
   }
+
+
+  
+    const formatandoData = (value) => {
+      data_nao_tratada = value.slice(0,10)
+      dia = data_nao_tratada.slice(3,5)
+      mes = data_nao_tratada.slice(0,2)
+      ano = data_nao_tratada.slice(6,10)
+      data_tratada = (dia+'/'+mes+'/'+ano)
+      return data_tratada
+    }
   
   // let financias = [];
   const [loading, setLoading] = useState(false)
   const [financias, setFinancias] = useState([])
 
   async function FuncaoProcura() {
+    setFinancias([])
     setLoading(true)
-    const collectionRef = firestore().collection('financia');
+    const collectionRef = firestore().collection('financia').where('email_usuario', '==', 'lucas@gmail.com').orderBy("data", "desc");
 
       collectionRef.get()
         .then(snapshot => {
@@ -83,8 +95,10 @@ export default function Atividades() {
                         icon={t.tipo_financia === 'Receita' ? 'receita' : 'dispesa'} 
                         colorTitulo='#828282' 
                         colorValor={t.tipo_financia === 'Receita' ? '#45D75C' : '#FF3434'} 
-                        text={t.tipo_financia === 'Receita' ? 'Receita' : 'Dispesa'} 
+                        text={t.tipo_financia === 'Receita' ? 'Receita' : 'Despesa'} 
                         valor={formatCurrency(t.valor)} 
+                        data={formatandoData(t.data)}
+                        gap={-150}
                       />
                       <FontAwesome 
                         style={stylesAtividades.icon}
@@ -143,6 +157,7 @@ const stylesAtividades = StyleSheet.create({
    flex: 1,
    flexDirection: 'row',
    alignItems: 'center',
+   paddingTop: 10
   },
   icon: {
     paddingRight: 15

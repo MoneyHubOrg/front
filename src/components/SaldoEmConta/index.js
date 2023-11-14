@@ -1,16 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
+import firestore from '@react-native-firebase/firestore';
 
 export default function SaldoEmConta({ padding }){
 
   const [visibility, setVisibility] = useState(true)
   console.log(visibility)
+  const [loading, setLoading] = useState(false)
+  const [saldo, setSaldo] = useState()
 
   const toggleVisibility = () => {
     setVisibility(!visibility);
   };
+
+  const formatCurrency = (value) => {
+    let currency = (parseFloat(value)).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    });
+    return currency
+}
+
+
+
+
+  async function FuncaoProcura() {
+    setLoading(true)
+    const collectionRef = firestore().collection('user').where('email', '==', 'lucas@gmail.com');
+
+      collectionRef.get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            setSaldo(doc.data().saldo_em_conta)
+          });
+        
+          setLoading(false)
+        })
+        .catch(err => {
+          console.error('Erro ao obter documentos da coleção:', err);
+          setLoading(false)
+        });
+        
+        }
+
+            
+        useEffect(() => {
+          FuncaoProcura()
+        }, []) 
 
   return(
     <View 
@@ -20,14 +59,19 @@ export default function SaldoEmConta({ padding }){
       ]}
     >
       <Text style={stylesSaldoEmConta.title}>Saldo em Conta</Text>
-      <View style={stylesSaldoEmConta.field}>
-        <Text style={stylesSaldoEmConta.subTitle}>
-          R$ {visibility ? '25.000,00' : '***'}
-        </Text>
-        <TouchableOpacity onPress={toggleVisibility}>
-          <AntDesign name="eyeo" color='white' size={20} />
-        </TouchableOpacity>
-      </View>
+      {loading ? (
+        <Text style={stylesSaldoEmConta.text}>Carregando...</Text>
+      ): (
+          <View style={stylesSaldoEmConta.field}>
+          <Text style={stylesSaldoEmConta.subTitle}>
+            {visibility ? formatCurrency(saldo) : '***'}
+          </Text>
+          <TouchableOpacity onPress={toggleVisibility}>
+            <AntDesign name="eyeo" color='white' size={20} />
+          </TouchableOpacity>
+        </View>
+      )}
+         
     </View>
   )
 }
@@ -53,6 +97,13 @@ const stylesSaldoEmConta = StyleSheet.create({
     color: 'white',
     fontSize: 25,
     fontFamily: 'Montserrat-Bold',
+    fontWeight: 'bold',
+  },
+  text: {
+    width: '100%',
+    paddingLeft: 20,
+    color: 'white',
+    fontSize: 30,
     fontWeight: 'bold',
   },
 })

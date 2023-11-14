@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import ArrowsUpDown from 'react-native-vector-icons/Feather';
 
 
-export default function TextWithIcon(props) {
+export default function TextWithIconNoDate(props) {
     const styles = TextWithIconStyles(props);
     return (
         <View style={styles.container}>
@@ -11,10 +11,7 @@ export default function TextWithIcon(props) {
                 {(props.icon == 'despesa') ? <ArrowsUpDown name="arrow-down-circle" color={props.colorValor} size={40} /> : <ArrowsUpDown name="arrow-up-circle" color={props.colorValor} size={40} />}
             </View>
             <View style={styles.ladoDireito}>
-                <View style={styles.title}>
-                    <Text style={styles.text}>{props.text} </Text>
-                    <Text style={styles.date}>{'-'+ '  '+props.data} </Text>
-                </View>
+                <Text style={styles.text}>{props.text} </Text>
                 <Text style={styles.valor}>{props.valor}</Text>
             </View>
         </View>
@@ -56,17 +53,4 @@ const TextWithIconStyles = (props) => StyleSheet.create(
             paddingLeft: 8,
 
         },
-        title: {
-            flex:1,
-            flexDirection: 'row',
-            gap:props.gap ?? null
-        },
-        date: {
-            fontSize: 10,
-            color: props.colorTitulo ?? '#000',
-            textAlign: 'left',
-            width: '100%',
-            marginTop: 4
-
-        }
     })
