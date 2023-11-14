@@ -1,18 +1,29 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import TextWithIcon from '../TextWithIcon';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import firestore from '@react-native-firebase/firestore';
 
 export default function Atividades() {
 
+  const formatCurrency = (value) => {
+      let currency = (parseFloat(value)).toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+      });
+      return currency
+  }
   
-  let financias = [];
+  // let financias = [];
+  const [loading, setLoading] = useState(false)
+  const [financias, setFinancias] = useState([])
 
   async function FuncaoProcura() {
+    setLoading(true)
     const collectionRef = firestore().collection('financia');
 
       collectionRef.get()
@@ -23,18 +34,28 @@ export default function Atividades() {
           }
 
           snapshot.forEach(doc => {
-            console.log('Documento:', doc.id, '=>', doc.data());
-            financias.push({id: doc.id, data: doc.data})
+            // console.log('Documento:', doc.id, '=>', doc.data());
+            // financias.push({id: doc.id, ...doc.data()})
+            // setFinancias({id: doc.id, ...doc.data()})
+            setFinancias(prevArray => [...prevArray, {id: doc.id, ...doc.data()}])
+    
           });
-          console.log(financias)
+        
+          setLoading(false)
         })
         .catch(err => {
           console.error('Erro ao obter documentos da coleção:', err);
+          setLoading(false)
         });
         
         }
+    
 
-  FuncaoProcura()
+
+        useEffect(() => {
+          FuncaoProcura()
+        }, []) 
+
 
 
 
@@ -50,14 +71,39 @@ export default function Atividades() {
             paddingBottom: 10
           }}
         />
-        <View style={stylesAtividades.scrollView}>
-          <ScrollView style={stylesAtividades.scroll}>
-               <View style={stylesAtividades.transacoesContainer}>
-                  <TextWithIcon icon="receita" colorTitulo='#828282' colorValor='#45D75C' text="Receita" valor="R$ 50.000,00" />
-                  <AntDesign name="gift" color='white' size={25} />
-               </View>
-          </ScrollView>
-        </View>
+
+      {loading ? (
+            <Text style={stylesAtividades.text}>Carregando...</Text>
+          ) : (
+            <View style={stylesAtividades.scrollView}>
+            <ScrollView style={stylesAtividades.scroll}>
+                {financias.map((t, index) => (
+                   <View key={index} style={stylesAtividades.transacoesContainer}>
+                      <TextWithIcon 
+                        icon={t.tipo_financia === 'Receita' ? 'receita' : 'dispesa'} 
+                        colorTitulo='#828282' 
+                        colorValor={t.tipo_financia === 'Receita' ? '#45D75C' : '#FF3434'} 
+                        text={t.tipo_financia === 'Receita' ? 'Receita' : 'Dispesa'} 
+                        valor={formatCurrency(t.valor)} 
+                      />
+                      <FontAwesome 
+                        style={stylesAtividades.icon}
+                        name={
+                          t.categoria === 'Mercado' ? 'shopping-cart' :
+                          t.categoria === 'Comida' ? 'cutlery' :
+                          t.categoria === 'Farmácia' ? 'medkit' :
+                          t.categoria === 'Lazer' ? 'glass' :
+                          t.categoria === 'Viagem' ? 'plane' : null
+                        }
+                        color='white' 
+                        size={25} 
+                      />
+                    </View>
+                ))}
+            </ScrollView>
+          </View>
+          )
+        }
       </View>
     </View>
   )
@@ -98,4 +144,7 @@ const stylesAtividades = StyleSheet.create({
    flexDirection: 'row',
    alignItems: 'center',
   },
+  icon: {
+    paddingRight: 15
+  }
 })
