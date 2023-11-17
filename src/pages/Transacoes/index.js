@@ -1,12 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import TextWithIcon from '../../components/TextWithIcon';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import firestore from '@react-native-firebase/firestore';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Transacoes() {
+  const { user } = useContext(AuthContext);
 
   const formatCurrency = (value) => {
       let currency = (parseFloat(value)).toLocaleString('pt-BR', {

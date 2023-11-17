@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import Arrows from 'react-native-vector-icons/AntDesign';
@@ -7,8 +7,10 @@ import TextWithIconNoDate from '../TextWithIconNoDate';
 
 
 import firestore from '@react-native-firebase/firestore';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function VisaoGeral() {
+  const { user } = useContext(AuthContext);
 
   const [loading, setLoading] = useState(false)
   const [receitaFinal, setReceitaFinal] = useState(0)
@@ -29,7 +31,7 @@ let despesas=0;
   async function FuncaoProcura() {
  
     setLoading(true)
-    const collectionRef = firestore().collection('financia').where('email_usuario', '==', 'lucas@gmail.com').orderBy("data", "desc");
+    const collectionRef = firestore().collection('financia').where('email_usuario', '==', user.email).orderBy("data", "desc");
 
       collectionRef.get()
         .then(snapshot => {

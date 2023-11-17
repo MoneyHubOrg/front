@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "602859963398",
-    "project_id": "moneyhub-a2d4a",
-    "storage_bucket": "moneyhub-a2d4a.appspot.com"
+    "project_number": "339814240791",
+    "project_id": "projetomobilefatec-6daa5",
+    "storage_bucket": "projetomobilefatec-6daa5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:602859963398:android:c8bbb1c201a272dd46af87",
+        "mobilesdk_app_id": "1:339814240791:android:53ee9ff78afd2c13258252",
         "android_client_info": {
           "package_name": "com.mobile"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBRDroyDoAGHDQgJK_ePI7ZXuAxgINZllk"
+          "current_key": "AIzaSyChpBzMqe3SBsEOL63j0u7XZdBUb5s7zcM"
         }
       ],
       "services": {

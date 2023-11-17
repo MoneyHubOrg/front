@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { View, Text, StyleSheet, TextInput, Button, ToastAndroid } from 'react-native';
 import { Link, useNavigation } from '@react-navigation/native';
 import SaldoEmConta from '../../components/SaldoEmConta';
@@ -8,8 +8,10 @@ import { useForm } from 'react-hook-form';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import firestore from '@react-native-firebase/firestore';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function CadastrarAtividade(){
+  const { user } = useContext(AuthContext);
 
   let dataAtual = new Date().toLocaleString()
 
@@ -28,7 +30,7 @@ export default function CadastrarAtividade(){
     .add({
       categoria: data['categoria'],
       // aq tem q chegar o email do usuario atual
-      email_usuario: 'lucas@gmail.com',
+      email_usuario: user.email,
       valor: data['valor'],
       tipo_financia: data['tipo'],
       data: dataAtual

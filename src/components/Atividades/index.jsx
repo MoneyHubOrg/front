@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import TextWithIcon from '../TextWithIcon';
 
@@ -7,8 +7,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import firestore from '@react-native-firebase/firestore';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Atividades() {
+  const { user } = useContext(AuthContext);
 
   const formatCurrency = (value) => {
       let currency = (parseFloat(value)).toLocaleString('pt-BR', {
@@ -36,7 +38,7 @@ export default function Atividades() {
   async function FuncaoProcura() {
     setFinancias([])
     setLoading(true)
-    const collectionRef = firestore().collection('financia').where('email_usuario', '==', 'lucas@gmail.com').orderBy("data", "desc");
+    const collectionRef = firestore().collection('financia').where('email_usuario', '==', user.email).orderBy("data", "desc");
 
       collectionRef.get()
         .then(snapshot => {

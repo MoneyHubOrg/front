@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import Profile from "../../../assets/img/profile.png"
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Perfil() {
+  const { user } = useContext(AuthContext);
 
   return (
       <View style={stylesPerfil.container}>
@@ -10,14 +12,14 @@ export default function Perfil() {
           <View style={stylesPerfil.perfil}>
             <Image source={Profile} style={stylesPerfil.image} />
           </View>
-          <Text style={stylesPerfil.Text}>Kevin</Text>
+          <Text style={stylesPerfil.Text}>{user.displayName}</Text>
         </View>
         <View style={stylesPerfil.info}>
           <Text style={stylesPerfil.infoTitle}>Informações da Conta</Text>
           <View style={stylesPerfil.informations}>
-            <Text style={stylesPerfil.infoText}>Nome: Kevin</Text>
-            <Text style={stylesPerfil.infoText}>E-mail: romribkevin@gmail.com</Text>
-            <Text style={stylesPerfil.infoText}>Telefone: (12) 99154-7409</Text>
+            <Text style={stylesPerfil.infoText}>Nome: {user.displayName}</Text>
+            <Text style={stylesPerfil.infoText}>E-mail: {user.email}</Text>
+            {/* <Text style={stylesPerfil.infoText}>Telefone: (12) 99154-7409</Text> */}
           </View>
         </View>
       </View>
