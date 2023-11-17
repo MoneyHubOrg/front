@@ -31,12 +31,17 @@ export default function SaldoEmConta({ padding }) {
 
   async function FuncaoProcura() {
     setLoading(true)
-    const collectionRef = firestore().collection('user').where('email', '==', user.email);
+    const collectionRef = firestore().collection('financia').where('email', '==', user.email);
 
     collectionRef.get()
       .then(snapshot => {
         snapshot.forEach(doc => {
-          setSaldo(doc.data().saldo_em_conta)
+          // pegando valor e somando se for receita e subtaindo se for despesa
+          if (doc.data().tipo === 'Receita') {
+            setSaldo(saldo + doc.data().valor)
+          } else {
+            setSaldo(saldo - doc.data().valor)
+          }
         });
 
         setLoading(false)
