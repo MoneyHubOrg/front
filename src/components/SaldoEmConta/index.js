@@ -6,11 +6,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../contexts/AuthContext';
 
-export default function SaldoEmConta({ padding }) {
+
+export default function SaldoEmConta({ padding }){
   const { user } = useContext(AuthContext);
 
   const [visibility, setVisibility] = useState(true)
-  console.log(visibility)
   const [loading, setLoading] = useState(false)
   const [saldo, setSaldo] = useState()
 
@@ -20,56 +20,51 @@ export default function SaldoEmConta({ padding }) {
 
   const formatCurrency = (value) => {
     let currency = (parseFloat(value)).toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
+        style: 'currency',
+        currency: 'BRL'
     });
     return currency
-  }
+}
 
 
 
 
   async function FuncaoProcura() {
     setLoading(true)
-    const collectionRef = firestore().collection('financia').where('email', '==', user.email);
+    const collectionRef = firestore().collection('conta').where('email', '==', user.email);
 
-    collectionRef.get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          // pegando valor e somando se for receita e subtaindo se for despesa
-          if (doc.data().tipo === 'Receita') {
-            setSaldo(saldo + doc.data().valor)
-          } else {
-            setSaldo(saldo - doc.data().valor)
-          }
+      collectionRef.get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            setSaldo(doc.data().saldo_em_conta)
+          });
+        
+          setLoading(false)
+        })
+        .catch(err => {
+          console.error('Erro ao obter documentos da coleção:', err);
+          setLoading(false)
         });
+        
+        }
 
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error('Erro ao obter documentos da coleção:', err);
-        setLoading(false)
-      });
+            
+        useEffect(() => {
+          FuncaoProcura()
+        }, []) 
 
-  }
-
-
-  useEffect(() => {
-    FuncaoProcura()
-  }, [])
-
-  return (
-    <View
+  return(
+    <View 
       style={[
-        stylesSaldoEmConta.container,
+        stylesSaldoEmConta.container, 
         { paddingLeft: padding || 'auto' }
       ]}
     >
       <Text style={stylesSaldoEmConta.title}>Saldo em Conta</Text>
       {loading ? (
         <Text style={stylesSaldoEmConta.text}>Carregando...</Text>
-      ) : (
-        <View style={stylesSaldoEmConta.field}>
+      ): (
+          <View style={stylesSaldoEmConta.field}>
           <Text style={stylesSaldoEmConta.subTitle}>
             {visibility ? formatCurrency(saldo) : '***'}
           </Text>
@@ -78,19 +73,19 @@ export default function SaldoEmConta({ padding }) {
           </TouchableOpacity>
         </View>
       )}
-
+         
     </View>
   )
 }
 
 const stylesSaldoEmConta = StyleSheet.create({
-  container: {
-    flex: 0,
+  container:{
+    flex:0,
     backgroundColor: 'black',
     marginTop: 20,
     marginBottom: 20,
   },
-  field: {
+  field:{
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10

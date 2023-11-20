@@ -34,7 +34,7 @@ export default function Transacoes() {
   async function FuncaoProcura() {
     setFinancias([])
     setLoading(true)
-    const collectionRef = firestore().collection('financia').where('email_usuario', '==', 'lucas@gmail.com').orderBy("data", "desc");
+    const collectionRef = firestore().collection('financia').where('email_usuario', '==', user.email).orderBy("data", "desc");
 
       collectionRef.get()
         .then(snapshot => {

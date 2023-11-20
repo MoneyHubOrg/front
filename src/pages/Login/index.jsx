@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 
 import MoneyHub1 from '../../../assets/MoneyHub1.png';
 import { useForm } from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
+import { ToastAndroid } from 'react-native';
 
 
 
@@ -25,13 +26,15 @@ export default function Login() {
         auth()
             .signInWithEmailAndPassword(email, password)
             .then(() => {
-                console.log('Usuário logado com sucesso!');
+    
+                ToastAndroid.show('Logado com Sucesso!', 3)
                 // Navegue para a tela principal
                 navegar.navigate('Main');
 
             })
             .catch(error => {
-                console.error(error);
+                ToastAndroid.show('Credenciais inválidas!', 3)
+             
             });
     };
 

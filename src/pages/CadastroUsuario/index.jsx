@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
+import { ToastAndroid } from 'react-native';
 
+import firestore from '@react-native-firebase/firestore';
 
 export default function CadastroUsuario() {
     const [nome, setNome] = useState('');
@@ -22,13 +24,26 @@ export default function CadastroUsuario() {
                 });
             })
             .then(() => {
-                console.log('Usuário registrado com o nome!');
-                // Navegue para a tela principal
-                navegar.navigate('Login');
+                ToastAndroid.show('Usuário registrado com Sucesso!', 3)
+                // criar tabela de conta
+
+                firestore()
+                .collection('conta')
+                .add({
+                  email: email,
+                  saldo_em_conta: 0
+                })
+                .then(() => {
+
+                    navegar.navigate('Login');
+                })
+                .catch(() => {
+                  ToastAndroid.show('Erro ao cadastrar tabela!', 3)
+                })
 
             })
             .catch(error => {
-                console.error(error);
+                ToastAndroid.show('Erro ao registrar Usuário, digite dados Reais!', 3)
             });
     };
 
@@ -71,16 +86,17 @@ const CadUserStyles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         marginBottom: 20,
+        color: "#FFFFFF"
     },
     input: {
-        backgroundColor: '#eeeeee1a',
+        backgroundColor: '#FFFFFF',
         fontSize: 16,
         padding: 15,
         marginBottom: 15,
         borderRadius: 7,
     },
     botao: {
-        backgroundColor: '#0031b7',
+        backgroundColor: '#7305CA',
         padding: 15,
         borderRadius: 7,
         alignItems: 'center',
