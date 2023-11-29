@@ -10,7 +10,7 @@ import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Atividades() {
-  const { user } = useContext(AuthContext);
+  const { user, setAtualizaDadosAtividade, atualizaDadosAtividade } = useContext(AuthContext);
 
   const formatCurrency = (value) => {
       let currency = (parseFloat(value)).toLocaleString('pt-BR', {
@@ -48,9 +48,6 @@ export default function Atividades() {
           }
 
           snapshot.forEach(doc => {
-            // console.log('Documento:', doc.id, '=>', doc.data());
-            // financias.push({id: doc.id, ...doc.data()})
-            // setFinancias({id: doc.id, ...doc.data()})
             setFinancias(prevArray => [...prevArray, {id: doc.id, ...doc.data()}])
     
           });
@@ -60,17 +57,18 @@ export default function Atividades() {
         .catch(err => {
           console.error('Erro ao obter documentos da coleção:', err);
           setLoading(false)
-        });
+        })
+        .finally(() => {
+          if(atualizaDadosAtividade){
+            setAtualizaDadosAtividade(false)
+          }
+        })
         
         }
-    
-
 
         useEffect(() => {
           FuncaoProcura()
-        }, []) 
-
-
+        }, [atualizaDadosAtividade]) 
 
 
   return (
