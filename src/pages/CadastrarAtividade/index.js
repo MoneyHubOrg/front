@@ -9,9 +9,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../contexts/AuthContext';
+import { AtlContext } from '../../contexts/AtlContext';
 
 export default function CadastrarAtividade(){
   const { user } = useContext(AuthContext);
+  const {dadosAtualizados, setDadosAtualizados} = useContext(AtlContext)
 
   let dataAtual = new Date().toLocaleString()
 
@@ -38,6 +40,7 @@ export default function CadastrarAtividade(){
     .then(() => {
       ToastAndroid.show('Cadastrado com sucesso!', 3)
       navigation.navigate('Principal');
+  
     })
     .catch(() => {
       ToastAndroid.show('Erro ao Cadastrar', 3)

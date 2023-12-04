@@ -2,6 +2,7 @@ import Principal from '../pages/Principal';
 import CadastrarAtividade from '../pages/CadastrarAtividade';
 import Perfil from '../pages/Perfil';
 import Transacoes from '../pages/Transacoes';
+import Relatorios from '../pages/Relatorios';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -61,7 +62,7 @@ function MainRoutes() {
 
             <Tab.Screen 
                 name='Relatórios'
-                component={Principal}
+                component={Relatorios}
                 options={{
                     tabBarIcon: ({ color, size }) => {
                       return <AntDesign name="barschart" color={color} size={size} />

@@ -7,6 +7,8 @@ import firestore from '@react-native-firebase/firestore';
 import { useForm } from 'react-hook-form';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
+import storage from '@react-native-firebase/app'
+
           
 
 
@@ -14,7 +16,7 @@ export default function Perfil() {
   const { user } = useContext(AuthContext);
   const [saldo, setSaldo] = useState()
 
-  
+
   const formatCurrency = (value) => {
     let currency = (parseFloat(value)).toLocaleString('pt-BR', {
         style: 'currency',
