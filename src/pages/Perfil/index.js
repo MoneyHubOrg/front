@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { View, StyleSheet, Image, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 import Profile from "../../../assets/img/profile.png"
 import { AuthContext } from '../../contexts/AuthContext';
 import { useState, useEffect } from 'react';
@@ -8,6 +8,10 @@ import { useForm } from 'react-hook-form';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import storage from '@react-native-firebase/app'
+import CameraComponente from '../../components/Camera';
+
+
+import { Link, useNavigation } from '@react-navigation/native';
 
           
 
@@ -15,6 +19,7 @@ import storage from '@react-native-firebase/app'
 export default function Perfil() {
   const { user } = useContext(AuthContext);
   const [saldo, setSaldo] = useState()
+  const navigation = useNavigation();
 
 
   const formatCurrency = (value) => {
@@ -46,19 +51,6 @@ export default function Perfil() {
 
   const {register, setValue, handleSubmit} = useForm();
 
-  // const onSubmit = (data) => {
-  //   const collectionRef = firestore().collection('conta').where('email', '==', user.email)
-
-  //   let id;
-  //   collectionRef.get()
-  //   .then(snapshot => {
-  //     snapshot.forEach(docs => {
-  //       id=docs.id
-  //     })
-  //   })
-  
-   
-  // };
       
   const onSubmit = async (data) => {
     const collectionRef = firestore().collection('conta').where('email', '==', user.email);
@@ -81,6 +73,11 @@ export default function Perfil() {
     }
   };
 
+
+  const enviarParaFotos = () => {
+    navigation.navigate('Fotos');
+  }
+
   useEffect(() => {
     FuncaoProcura()
   }, []) 
@@ -93,7 +90,9 @@ export default function Perfil() {
       <View style={stylesPerfil.container}>
         <View style={stylesPerfil.infoProfile}>
           <View style={stylesPerfil.perfil}>
-            <Image source={Profile} style={stylesPerfil.image} />
+            <TouchableOpacity onPress={() => enviarParaFotos()}>
+              <Image source={Profile} style={stylesPerfil.image} />
+            </TouchableOpacity>
           </View>
           <Text style={stylesPerfil.Text}>{user.displayName}</Text>
         </View>

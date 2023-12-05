@@ -19,7 +19,8 @@ export const AtlProvider = ({children}) => {
     console.log('funcao procura rodando agora');
     const collectionRef = firestore()
       .collection('financia')
-      .where('email_usuario', '==', user.email)
+      // .where('email_usuario', '==', user.email)
+      .where('email_usuario', '==', 'lucasrpmedici@gmail.com')
       .orderBy('data', 'desc');
 
     collectionRef
