@@ -4,7 +4,10 @@ import { View, Text, StyleSheet, TextInput, Button, ToastAndroid, TouchableOpaci
 import { Link, useNavigation } from '@react-navigation/native';
 
 
-import Profile from "../../../assets/img/profile.png"
+import storage from '@react-native-firebase/storage';
+
+
+
 
 function CameraComponente() {
     console.log('bateu no compoente de camrea')
@@ -19,6 +22,9 @@ function CameraComponente() {
     const [showCamera, setShowCamera] = useState(true)
     const [imageSource, setImageSource] = useState('');
 
+    const [uri, setUri] = useState('')
+    const [filename, setFilename] = useState('')
+ 
 
     useEffect(() => {
         async function getPermission() {
@@ -33,8 +39,11 @@ function CameraComponente() {
             const photo = await camera.current.takePhoto({});
             setImageSource(photo.path);
             setShowCamera(false);
-            console.log(photo.path)
-            console.log(imageSource)
+  
+            let uri = `file:/${photo.path}`
+            setUri(uri)
+            setFilename('lucasrpmedici@gmail.com')
+          
         }
     }
 
@@ -50,8 +59,17 @@ function CameraComponente() {
 
 
     
-    const uploadFirebase = () => {
-        console.log('salvar imagem no firebase')
+    const uploadFirebase = async () => {
+        const reference = storage().ref(`/imgs/${filename}`)
+        try {
+            await reference.putFile(uri);
+            navigation.navigate('Principal')
+            ToastAndroid.show('Foto cadastrada com sucesso!', 3)
+        } catch (error){
+            ToastAndroid.show('Erro ao enviar imagem!', 3)
+            navigation.navigate('Principal')
+
+        }
     }
 
 
@@ -77,26 +95,14 @@ function CameraComponente() {
             </>
         ) : (
             <>
-
-                {/* {console.log('bati no log')}
-                {imageSource !== '' ? (
-                    <Image
-                        style={styles.image}
-                        source={{
-                            uri: `file://${imageSource}`,
-                        }}
-                    />
-                ) : null && console.log('imagem aparecendo')} */}
-                
-                
-
+                    
           
                 {imageSource !== '' ? (
                     <View style={styles.imageContainer}>
                         <Image
                             style={styles.image}
                             source={{
-                                uri: `file://'${imageSource}`,
+                                uri: `file://${imageSource}`,
                             }}
                             rotate={90}
                         />
