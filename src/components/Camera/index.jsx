@@ -7,6 +7,7 @@ import { Link, useNavigation } from '@react-navigation/native';
 import Profile from "../../../assets/img/profile.png"
 
 function CameraComponente() {
+    console.log('bateu no compoente de camrea')
     const navigation = useNavigation();
     const camera = useRef(null);
     const device = useCameraDevice('front', {
@@ -15,7 +16,7 @@ function CameraComponente() {
     
 
 
-    const [showCamera, setShowCamera] = useState(false)
+    const [showCamera, setShowCamera] = useState(true)
     const [imageSource, setImageSource] = useState('');
 
 
@@ -112,7 +113,7 @@ function CameraComponente() {
                             alignItems: 'center',
                             borderRadius: 10,
                             borderWidth: 2,
-                            borderColor:'#fff', 
+                            borderColor:'#7305CA', 
                             width: 100,
                         }}
                         onPress={() => voltarPerfil()}>
@@ -130,7 +131,7 @@ function CameraComponente() {
                                 alignItems: 'center',
                                 borderRadius: 10,
                                 borderWidth: 2,
-                                borderColor:'#000', 
+                                borderColor:'#7305CA', 
                     
                             }}
                             onPress={() => setShowCamera(true)}>
@@ -145,7 +146,7 @@ function CameraComponente() {
                                 alignItems: 'center',
                                 borderRadius: 10,
                                 borderWidth: 2,
-                                borderColor:'white', 
+                                borderColor:'#7305CA', 
                     
                             }}
                             onPress={() => uploadFirebase()}>
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     camButton: {
       width: 60,
       height: 60,
-      backgroundColor: '#fff',
+      backgroundColor: '#7305CA',
       borderRadius: 30,
     },
     imageContainer: {

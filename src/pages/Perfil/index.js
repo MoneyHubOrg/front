@@ -76,6 +76,8 @@ export default function Perfil() {
 
   const enviarParaFotos = () => {
     navigation.navigate('Fotos');
+  
+    
   }
 
   useEffect(() => {

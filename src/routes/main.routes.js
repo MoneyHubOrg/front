@@ -79,14 +79,6 @@ function MainRoutes() {
           ),
         }}
       />
-
-        <Tab.Screen 
-            name='Fotos'
-            component={CameraComponente}
-            options={{
-              tabBarVisible: routeName !== 'Principal',
-            }}
-        />
     </Tab.Navigator>
   );
 }
