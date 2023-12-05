@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity } from 'react-native';
 import Profile from "../../../assets/img/profile.png"
 import { AuthContext } from '../../contexts/AuthContext';
+import { AtlContext } from '../../contexts/AtlContext';
 import { useState, useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { useForm } from 'react-hook-form';
@@ -18,6 +19,7 @@ import { Link, useNavigation } from '@react-navigation/native';
 
 export default function Perfil() {
   const { user } = useContext(AuthContext);
+  const {imgUrl} = useContext(AtlContext)
   const [saldo, setSaldo] = useState()
   const navigation = useNavigation();
 
@@ -81,6 +83,7 @@ export default function Perfil() {
   }
 
   useEffect(() => {
+    console.log(imgUrl)
     FuncaoProcura()
   }, []) 
 
@@ -93,7 +96,12 @@ export default function Perfil() {
         <View style={stylesPerfil.infoProfile}>
           <View style={stylesPerfil.perfil}>
             <TouchableOpacity onPress={() => enviarParaFotos()}>
-              <Image source={Profile} style={stylesPerfil.image} />
+              {imgUrl ? (
+                <Image source={{uri: imgUrl}} style={stylesPerfil.image} />
+              ): (
+                <Image source={Profile} style={stylesPerfil.image} />
+              )
+              }
             </TouchableOpacity>
           </View>
           <Text style={stylesPerfil.Text}>{user.displayName}</Text>
