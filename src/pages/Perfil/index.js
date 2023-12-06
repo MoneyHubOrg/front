@@ -97,7 +97,7 @@ export default function Perfil() {
           <View style={stylesPerfil.perfil}>
             <TouchableOpacity onPress={() => enviarParaFotos()}>
               {imgUrl ? (
-                <Image source={{uri: imgUrl}} style={stylesPerfil.image} />
+                <Image source={{uri: imgUrl}} style={stylesPerfil.imageDoBanco} />
               ): (
                 <Image source={Profile} style={stylesPerfil.image} />
               )
@@ -155,6 +155,14 @@ const stylesPerfil = StyleSheet.create({
     height: 150,
     backgroundColor: 'white',
     borderRadius: 500,
+  },
+  imageDoBanco: {
+    width: 150,
+    height: 150,
+    borderRadius: 75, 
+    borderWidth: 4,
+    borderColor: '#7305CA',
+    'transform': [{ rotate: '90deg' }]
   },
   image: {
     width: 150,

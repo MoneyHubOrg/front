@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         width: '150%',
         height: '150%',
         resizeMode: 'contain',
-        'transform': 'rotate(90deg)'
+        'transform': [{ rotate: '90deg' }]
       },
     backButton: {
       position: 'absolute',
