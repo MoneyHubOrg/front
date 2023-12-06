@@ -12,14 +12,14 @@ const Stack2 = createStackNavigator();
 function AppNavigator() {
   return (
     <AuthProvider>
-      <AtlProvider>
+      {/* <AtlProvider> */}
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
           <Stack.Screen name="Main" component={MainRoutes} options={{ headerShown: false }} />
           <Stack2.Screen name="Fotos" component={CameraComponente} options={{headerShown: false}} />
           <Stack.Screen name="Register" component={CadastroUsuario} options={{ headerShown: false }} />
         </Stack.Navigator>
-      </AtlProvider>
+      {/* </AtlProvider> */}
     </AuthProvider>
   );
 }

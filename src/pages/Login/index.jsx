@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 import { ToastAndroid } from 'react-native';
 
+import { AuthContext } from '../../contexts/AuthContext';
 
 
 
@@ -14,6 +15,8 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [enable, setEnable] = useState(true);
+
+    const {setGatilhoBuscarDados} = useContext(AuthContext)
 
 
     const navegar = useNavigation();
@@ -28,6 +31,7 @@ export default function Login() {
             .then(() => {
     
                 ToastAndroid.show('Logado com Sucesso!', 3)
+                setGatilhoBuscarDados(Math.random())
                 // Navegue para a tela principal
                 navegar.navigate('Main');
 

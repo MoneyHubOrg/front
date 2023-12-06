@@ -12,8 +12,8 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { AtlContext } from '../../contexts/AtlContext';
 
 export default function CadastrarAtividade(){
-  const { user } = useContext(AuthContext);
-  const {dadosAtualizados, setDadosAtualizados} = useContext(AtlContext)
+  const { user, setGatilhoBuscarDados } = useContext(AuthContext);
+  
 
   let dataAtual = new Date().toLocaleString()
 
@@ -39,6 +39,7 @@ export default function CadastrarAtividade(){
     })
     .then(() => {
       ToastAndroid.show('Cadastrado com sucesso!', 3)
+      setGatilhoBuscarDados(Math.random())
       navigation.navigate('Principal');
   
     })

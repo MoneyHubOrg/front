@@ -10,7 +10,7 @@ import {AuthContext} from '../../contexts/AuthContext';
 import {AtlContext} from '../../contexts/AtlContext';
 
 export default function Atividades() {
-  const {atividades, atualizaInfos, setAtualizaInfo, loading, financias} = useContext(AtlContext);
+  const {loading, financias} = useContext(AuthContext);
 
   const formatCurrency = value => {
     let currency = parseFloat(value).toLocaleString('pt-BR', {
