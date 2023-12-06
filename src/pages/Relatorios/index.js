@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
+import { AuthContext } from '../../contexts/AuthContext'
 
 export default function Relatorios() {
   const screenWidth = Dimensions.get('window').width;
 
+  const { user, receitaJulho, receitaAgosto, receitaSetembro, receitaOutubro, receitaNovembro, receitaDezembro, despesaJulho, despesaAgosto, despesaSetembro, despesaOutubro, despesaNovembro, despesaDezembro } = useContext(AuthContext);
+
+  
   const dataReceita = {
     labels: ['Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     datasets: [
       {
-        data: [22, 50, 75, 60, 30, 85],
+        data: [receitaJulho, receitaAgosto, receitaSetembro, receitaOutubro, receitaNovembro, receitaDezembro],
       },
     ],
   };
@@ -19,7 +23,7 @@ export default function Relatorios() {
     labels: ['Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     datasets: [
       {
-        data: [22, 50, 75, 60, 30, 85],
+        data: [despesaJulho, despesaAgosto, despesaSetembro, despesaOutubro, despesaNovembro, despesaDezembro],
       },
     ],
   };
@@ -48,14 +52,14 @@ export default function Relatorios() {
       }}
       style={{
         marginVertical: 8,
-        borderRadius: 16,
+        borderRadius: 10,
       }}
     />
   );
 
   const GraficoDespesa = () => (
     <BarChart
-      data={dataReceita}
+      data={dataDespesa}
       width={screenWidth - 20} 
       height={220}
       yAxisLabel="R$"
@@ -77,7 +81,7 @@ export default function Relatorios() {
       }}
       style={{
         marginVertical: 8,
-        borderRadius: 16,
+        borderRadius: 10,
       }}
     />
   );
@@ -96,8 +100,26 @@ export default function Relatorios() {
           }}
         />
       </View>
-      <GraficoReceita />
-      <GraficoDespesa />
+      
+      <View>
+        <View>
+        <Text style={styles.text2}>Receitas</Text>
+          <GraficoReceita />
+        </View>
+        <View
+          style={{
+            borderBottomColor: '#535353',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            width: '100%',
+            paddingBottom: 10,
+          }}
+        />
+        <View>
+        <Text style={styles.text2}>Despesas</Text>
+          <GraficoDespesa />
+        </View>
+      </View>
+     
     </View>
   );
 }
@@ -119,6 +141,14 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     color: 'white',
     fontSize: 30,
+    fontWeight: 'bold',
+  },
+  text2: {
+    width: '100%',
+    paddingLeft: 20,
+    paddingTop: 10,
+    color: 'white',
+    fontSize: 25,
     fontWeight: 'bold',
   },
 });

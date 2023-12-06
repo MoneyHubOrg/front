@@ -12,7 +12,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { AtlContext } from '../../contexts/AtlContext';
 
 export default function CadastrarAtividade(){
-  const { user, setGatilhoBuscarFinancias, setGatilhoBuscaParaContas } = useContext(AuthContext);
+  const { user, setGatilhoBuscarFinancias, setGatilhoBuscaParaContas, setGatilhoBuscaParaContasReceitasDespesas} = useContext(AuthContext);
   
 
   let dataAtual = new Date().toLocaleString()
@@ -40,6 +40,7 @@ export default function CadastrarAtividade(){
       ToastAndroid.show('Cadastrado com sucesso!', 3)
       setGatilhoBuscarFinancias(Math.random())
       setGatilhoBuscaParaContas(Math.random())
+      setGatilhoBuscaParaContasReceitasDespesas(Math.random())
       navigation.navigate('Principal');
   
     })

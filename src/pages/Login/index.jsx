@@ -16,7 +16,7 @@ export default function Login() {
     const [senha, setSenha] = useState('');
     const [enable, setEnable] = useState(true);
 
-    const {setGatilhoBuscarFinancias, setGatilhoBuscarSaldoConta, setGatilhoBuscaParaContas, setgatilhoBuscarImagem} = useContext(AuthContext)
+    const {setGatilhoBuscarFinancias, setGatilhoBuscarSaldoConta, setGatilhoBuscaParaContas, setgatilhoBuscarImagem, setGatilhoBuscaParaContasReceitasDespesas} = useContext(AuthContext)
 
 
     const navegar = useNavigation();
@@ -35,6 +35,7 @@ export default function Login() {
                 setGatilhoBuscarSaldoConta(Math.random())
                 setGatilhoBuscaParaContas(Math.random())
                 setgatilhoBuscarImagem(Math.random())
+                setGatilhoBuscaParaContasReceitasDespesas(Math.random())
                 // Navegue para a tela principal
                 navegar.navigate('Main');
 

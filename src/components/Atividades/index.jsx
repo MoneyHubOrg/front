@@ -57,7 +57,7 @@ export default function Atividades() {
                     }
                     text={t.tipo_financia === 'Receita' ? 'Receita' : 'Despesa'}
                     valor={formatCurrency(t.valor)}
-                    data={formatandoData(t.data)}
+                    data={t.data}
                     gap={-150}
                   />
                   <FontAwesome

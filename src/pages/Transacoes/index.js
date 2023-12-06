@@ -56,7 +56,7 @@ export default function Transacoes() {
                         colorValor={t.tipo_financia === 'Receita' ? '#45D75C' : '#FF3434'} 
                         text={t.tipo_financia === 'Receita' ? 'Receita' : 'Despesa'} 
                         valor={formatCurrency(t.valor)} 
-                        data={formatandoData(t.data)}
+                        data={t.data}
                         gap={-200}
                       />
                       <FontAwesome 
