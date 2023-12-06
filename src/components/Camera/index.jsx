@@ -1,16 +1,17 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useRef, useContext} from 'react'
 import {Camera, useCameraDevice} from 'react-native-vision-camera'
 import { View, Text, StyleSheet, TextInput, Button, ToastAndroid, TouchableOpacity, Image } from 'react-native';
 import { Link, useNavigation } from '@react-navigation/native';
 
 
 import storage from '@react-native-firebase/storage';
+import { AuthContext } from '../../contexts/AuthContext';
 
 
 
 
 function CameraComponente() {
-    console.log('bateu no compoente de camrea')
+    const {user, setgatilhoBuscarImagem} = useContext(AuthContext);
     const navigation = useNavigation();
     const camera = useRef(null);
     const device = useCameraDevice('front', {
@@ -24,12 +25,14 @@ function CameraComponente() {
 
     const [uri, setUri] = useState('')
     const [filename, setFilename] = useState('')
+
+
+  
  
 
     useEffect(() => {
         async function getPermission() {
             const newCameraPermission = await Camera.requestCameraPermission();
-            console.log(newCameraPermission)
         }
         getPermission();
     }, [])
@@ -42,7 +45,7 @@ function CameraComponente() {
   
             let uri = `file:/${photo.path}`
             setUri(uri)
-            setFilename('lucasrpmedici@gmail.com')
+            setFilename(user.email)
           
         }
     }
@@ -65,6 +68,7 @@ function CameraComponente() {
             await reference.putFile(uri);
             navigation.navigate('Principal')
             ToastAndroid.show('Foto cadastrada com sucesso!', 3)
+            setgatilhoBuscarImagem(Math.random())
         } catch (error){
             ToastAndroid.show('Erro ao enviar imagem!', 3)
             navigation.navigate('Principal')

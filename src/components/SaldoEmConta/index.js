@@ -8,11 +8,9 @@ import { AuthContext } from '../../contexts/AuthContext';
 
 
 export default function SaldoEmConta({ padding }){
-  const { user } = useContext(AuthContext);
+  const { user, saldo, loading } = useContext(AuthContext);
 
   const [visibility, setVisibility] = useState(true)
-  const [loading, setLoading] = useState(false)
-  const [saldo, setSaldo] = useState()
 
   const toggleVisibility = () => {
     setVisibility(!visibility);
@@ -28,30 +26,6 @@ export default function SaldoEmConta({ padding }){
 
 
 
-
-  async function FuncaoProcura() {
-    setLoading(true)
-    const collectionRef = firestore().collection('conta').where('email', '==', user.email);
-
-      collectionRef.get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
-            setSaldo(doc.data().saldo_em_conta)
-          });
-        
-          setLoading(false)
-        })
-        .catch(err => {
-          console.error('Erro ao obter documentos da coleção:', err);
-          setLoading(false)
-        });
-        
-        }
-
-            
-        useEffect(() => {
-          FuncaoProcura()
-        }, []) 
 
   return(
     <View 

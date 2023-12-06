@@ -16,7 +16,7 @@ export default function Login() {
     const [senha, setSenha] = useState('');
     const [enable, setEnable] = useState(true);
 
-    const {setGatilhoBuscarDados} = useContext(AuthContext)
+    const {setGatilhoBuscarFinancias, setGatilhoBuscarSaldoConta, setGatilhoBuscaParaContas, setgatilhoBuscarImagem} = useContext(AuthContext)
 
 
     const navegar = useNavigation();
@@ -31,7 +31,10 @@ export default function Login() {
             .then(() => {
     
                 ToastAndroid.show('Logado com Sucesso!', 3)
-                setGatilhoBuscarDados(Math.random())
+                setGatilhoBuscarFinancias(Math.random())
+                setGatilhoBuscarSaldoConta(Math.random())
+                setGatilhoBuscaParaContas(Math.random())
+                setgatilhoBuscarImagem(Math.random())
                 // Navegue para a tela principal
                 navegar.navigate('Main');
 

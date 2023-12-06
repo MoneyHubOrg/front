@@ -55,7 +55,6 @@ export const AtlProvider = ({children}) => {
 
 
   const BuscandoFotoPerfil = () => {
-    // console.log(user.email)
     // const imagePath = `imgs/${user.email}`
     const imagePath = `imgs/lucasrpmedici@gmail.com`
 

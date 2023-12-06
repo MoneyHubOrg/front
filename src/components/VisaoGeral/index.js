@@ -10,11 +10,8 @@ import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export default function VisaoGeral() {
-  const { user } = useContext(AuthContext);
+  const { user, receitaFinal, despesaFinal, loading } = useContext(AuthContext);
 
-  const [loading, setLoading] = useState(false)
-  const [receitaFinal, setReceitaFinal] = useState(0)
-  const [despesaFinal, setDespesaFinal] = useState(0)
 
 
   const formatCurrency = (value) => {
@@ -24,51 +21,6 @@ export default function VisaoGeral() {
     });
     return currency
 }
-
-let receitas=0;
-let despesas=0; 
-
-  async function FuncaoProcura() {
- 
-    setLoading(true)
-    const collectionRef = firestore().collection('financia').where('email_usuario', '==', user.email).orderBy("data", "desc");
-
-      collectionRef.get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('Nenhum documento encontrado na coleção.');
-            return;
-          }
-
-         
-          snapshot.forEach(doc => {
-            if(doc.data().tipo_financia == 'Receita') { 
-              receitas = parseFloat(doc.data().valor)  + receitas
-              console.log('receitas'+receitas)
-
-            } else if(doc.data().tipo_financia == 'Despesa') { 
-              despesas = parseFloat(doc.data().valor) + despesas
-              console.log('despesas'+despesas)
- 
-            }
-          });
-          setReceitaFinal(receitas)
-         setDespesaFinal(despesas)
-         setLoading(false)
-        })
-        .catch(err => {
-          console.error('Erro ao obter documentos da coleção:', err);
-          setLoading(false)
-        });
-        
-        }
-    
-
-
-        useEffect(() => {
-          FuncaoProcura()
-        }, []) 
-
 
 
   return (

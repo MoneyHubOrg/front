@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
 import Profile from "../../../assets/img/profile.png"
 import { AuthContext } from '../../contexts/AuthContext';
 import { AtlContext } from '../../contexts/AtlContext';
@@ -18,9 +18,7 @@ import { Link, useNavigation } from '@react-navigation/native';
 
 
 export default function Perfil() {
-  const { user } = useContext(AuthContext);
-  const {imgUrl} = useContext(AtlContext)
-  const [saldo, setSaldo] = useState()
+  const { user, setGatilhoBuscarSaldoConta, saldo, imgUrl } = useContext(AuthContext);
   const navigation = useNavigation();
 
 
@@ -32,24 +30,7 @@ export default function Perfil() {
     return currency
 }
 
-  async function FuncaoProcura() {
-    const collectionRef = firestore().collection('conta').where('email', '==', user.email);
   
-    collectionRef.get()
-      .then(snapshot => {
-        snapshot.forEach(doc => {
-          setSaldo(doc.data().saldo_em_conta)
-        });
-      
-  
-      })
-      .catch(err => {
-        console.error('Erro ao obter documentos da coleção:', err);
-
-      });
-        
-  }
-
 
   const {register, setValue, handleSubmit} = useForm();
 
@@ -68,10 +49,14 @@ export default function Perfil() {
       firestore().collection('conta').doc(docId)
       .update({saldo_em_conta: data.valor})
       .then(() => {
-        console.log('user atualizado')
+        ToastAndroid.show('Saldo Atualizado!', 3)
+        setGatilhoBuscarSaldoConta(Math.random())
+        navigation.navigate('Principal')
+
       })
     } else {
       console.error('Documento não encontrado.');
+      ToastAndroid.show('Erro ao atualizar!', 3)
     }
   };
 
@@ -82,10 +67,6 @@ export default function Perfil() {
     
   }
 
-  useEffect(() => {
-    console.log(imgUrl)
-    FuncaoProcura()
-  }, []) 
 
   useEffect(() => {
     register('valor')

@@ -8,7 +8,7 @@ import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export default function Transacoes() {
-  const { user } = useContext(AuthContext);
+  const { user, loading, financias } = useContext(AuthContext);
 
   const formatCurrency = (value) => {
       let currency = (parseFloat(value)).toLocaleString('pt-BR', {
@@ -27,46 +27,7 @@ export default function Transacoes() {
     return data_tratada
   }
 
-  // let financias = [];
-  const [loading, setLoading] = useState(false)
-  const [financias, setFinancias] = useState([])
-
-  async function FuncaoProcura() {
-    setFinancias([])
-    setLoading(true)
-    const collectionRef = firestore().collection('financia').where('email_usuario', '==', user.email).orderBy("data", "desc");
-
-      collectionRef.get()
-        .then(snapshot => {
-          if (snapshot.empty) {
-            console.log('Nenhum documento encontrado na coleção.');
-            return;
-          }
-
-          snapshot.forEach(doc => {
-            // console.log('Documento:', doc.id, '=>', doc.data());
-            // financias.push({id: doc.id, ...doc.data()})
-            // setFinancias({id: doc.id, ...doc.data()})
-            setFinancias(prevArray => [...prevArray, {id: doc.id, ...doc.data()}])
-    
-          });
-        
-          setLoading(false)
-        })
-        .catch(err => {
-          console.error('Erro ao obter documentos da coleção:', err);
-          setLoading(false)
-        });
-        
-        }
-    
-
-
-        useEffect(() => {
-          FuncaoProcura()
-        }, []) 
-
-
+  
 
 
   return (

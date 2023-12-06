@@ -12,7 +12,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { AtlContext } from '../../contexts/AtlContext';
 
 export default function CadastrarAtividade(){
-  const { user, setGatilhoBuscarDados } = useContext(AuthContext);
+  const { user, setGatilhoBuscarFinancias, setGatilhoBuscaParaContas } = useContext(AuthContext);
   
 
   let dataAtual = new Date().toLocaleString()
@@ -31,7 +31,6 @@ export default function CadastrarAtividade(){
     .collection('financia')
     .add({
       categoria: data['categoria'],
-      // aq tem q chegar o email do usuario atual
       email_usuario: user.email,
       valor: data['valor'],
       tipo_financia: data['tipo'],
@@ -39,7 +38,8 @@ export default function CadastrarAtividade(){
     })
     .then(() => {
       ToastAndroid.show('Cadastrado com sucesso!', 3)
-      setGatilhoBuscarDados(Math.random())
+      setGatilhoBuscarFinancias(Math.random())
+      setGatilhoBuscaParaContas(Math.random())
       navigation.navigate('Principal');
   
     })
