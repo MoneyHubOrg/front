@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity, ToastAndroid } from 'react-native';
+import { View, StyleSheet, Image, Text, TextInput, TouchableOpacity, ToastAndroid, Keyboard, KeyboardAvoidingView } from 'react-native';
 import Profile from "../../../assets/img/profile.png"
 import { AuthContext } from '../../contexts/AuthContext';
 import { AtlContext } from '../../contexts/AtlContext';
@@ -20,6 +20,7 @@ import { Link, useNavigation } from '@react-navigation/native';
 export default function Perfil() {
   const { user, setGatilhoBuscarSaldoConta, saldo, imgUrl } = useContext(AuthContext);
   const navigation = useNavigation();
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
 
 
   const formatCurrency = (value) => {
@@ -72,7 +73,37 @@ export default function Perfil() {
     register('valor')
   }, [register]) 
 
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+  
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+
+
+  const infoContainerStyle = keyboardVisible
+  ? { height: '35%' }
+  : { height: '25%' };
+
   return (
+    <KeyboardAvoidingView style={stylesPerfil.containerKeyboard} behavior="position">
+
+    
       <View style={stylesPerfil.container}>
         <View style={stylesPerfil.infoProfile}>
           <View style={stylesPerfil.perfil}>
@@ -87,7 +118,7 @@ export default function Perfil() {
           </View>
           <Text style={stylesPerfil.Text}>{user.displayName}</Text>
         </View>
-        <View style={stylesPerfil.info}>
+        <View style={[stylesPerfil.info, infoContainerStyle]}>
           <Text style={stylesPerfil.infoTitle}>Informações do Usuário</Text>
           <View style={stylesPerfil.informations}>
             <Text style={stylesPerfil.infoText}>Nome: {user.displayName}</Text>
@@ -111,8 +142,11 @@ export default function Perfil() {
         </View>
         
       </View>
+      </KeyboardAvoidingView>
   )
 }
+
+
 
 const stylesPerfil = StyleSheet.create({
   container: {
@@ -181,5 +215,9 @@ const stylesPerfil = StyleSheet.create({
   infoText: {
     color: 'white',
     fontSize: 15,
+  },
+  containerKeyboard: {
+    backgroundColor: 'black', 
+  
   }
 })

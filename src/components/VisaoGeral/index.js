@@ -28,9 +28,9 @@ export default function VisaoGeral() {
       <Text style={stylesVisaoGeral.text}>Visão Geral</Text>
 
       <View style={stylesVisaoGeral.field}>
-        <Arrows name="left" color='white' size={20} style={stylesVisaoGeral.seta} />
-        <Text style={stylesVisaoGeral.mes}>Novembro</Text>
-        <Arrows name="right" color='white' size={20} style={stylesVisaoGeral.seta} />
+        {/* <Arrows name="left" color='white' size={20} style={stylesVisaoGeral.seta} /> */}
+        <Text style={stylesVisaoGeral.mes}>Dezembro</Text>
+        {/* <Arrows name="right" color='white' size={20} style={stylesVisaoGeral.seta} /> */}
       </View>
 
       {loading ? (
